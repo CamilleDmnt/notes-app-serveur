@@ -1,0 +1,7 @@
+POST http://localhost:3000/notes/
+content-type: application/json
+
+{
+    "username":"toto",
+    "password":"123"
+}
