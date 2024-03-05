@@ -20,7 +20,7 @@ app.use(json());
 
 // Initialisation du Router
 app.use('/notes', notesRouter);
-app.use('/users',usersRouter);
+app.use('/users', usersRouter);
 app.use('/', (req, res) => res.send('et oui on vous souhaite la bienvenue!'));
 
 // catch 404 and forward to error handler
