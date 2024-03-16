@@ -5,8 +5,9 @@ import verifyToken from '../middleware/auth-middleware.js';
 
 import { NoteController } from '../controllers/note-controller.js';
 import { Router } from 'express';
-const router = Router();
+var router = Router();
 
+const router = Router();
 const noteController = new NoteController();
 
 /* GET notes listing. */
@@ -16,7 +17,6 @@ router.get('/', verifyToken, function(req, res, next) {
 
 //  create a new note
 router.post('/', function(req, res) {
-  console.log('red body from router: ', req.body);
   noteController.create(req, res);
 });
 
