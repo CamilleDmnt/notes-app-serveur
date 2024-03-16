@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 // Middleware : intercepte la req et vérifie le token fourni
 // si tout se passe bien o passe la main au contrôleur grace à next()
 // si problème on répond avec une erreur et le contrôleur ne sera pas déclenché.
-export default function verifyToken(req, res, next) {
+export function verifyToken(req, res, next) {
   // le token devrait être présenté dans le header
   const token = req.header('Authorization');
   // 401 est le code pour dire "interdit"
@@ -22,7 +22,8 @@ export default function verifyToken(req, res, next) {
     // problème on interdit en répondant tout de même, par un 401
     res.status(401).json({ error: 'Invalid token' });
   }
-};
+}
+
 
 // exemple d'utilisation (simple insertion du nom de la fonction en deuxième argument)
 // router.get('/', verifyToken, function(req, res)) {...})
