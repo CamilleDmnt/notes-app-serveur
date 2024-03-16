@@ -5,9 +5,13 @@ import verifyToken from '../middleware/auth-middleware.js';
 
 import { NoteController } from '../controllers/note-controller.js';
 import { Router } from 'express';
-var router = Router();
+
+// middleware d'authentification
+import verifyToken from '../middleware/auth-middleware.js';
 
 const router = Router();
+
+// const router = Router();
 const noteController = new NoteController();
 
 /* GET notes listing. */
