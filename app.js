@@ -18,7 +18,12 @@ app.use(json());
 
 // Initialisation du Router
 app.use('/notes', notesRouter);
+app.use('/users/', usersRouter);
 app.use('/', (req, res) => res.send('et oui on vous souhaite la bienvenue!'));
+
+// prevent process to crash on exceptions.
+// will output the error instead.
+// https://stackoverflow.com/questions/36113101/handling-404-500-and-exceptions-in-node-js-and-express
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -31,20 +36,24 @@ app.use(function(req, res, next) {
 
 // development error handler
 // will print stacktrace
-// if (process.env.NODE_ENV === 'development') {
-//   app.use(function (err, req, res, next) {
-//     res.status(err.status || 500);
-//     if (req.contentType === 'application/json')
-//       res.json({ message: err.message });
-//   });
-// }
+if (app.get('env') === 'development') {
+  app.use(function(err, req, res, next) {
+      res.status(err.status || 500);
+      res.render('error', {
+          message: err.message,
+          error: err
+      });
+  });
+}
 
-// // production error handler
-// // no stacktraces leaked to user
-// app.use(function (err, req, res, next) {
-//   res.status(err.status || 500);
-//   if (req.contentType === 'application/json')
-//     res.json({ message: err.message });
-// });
+// production error handler
+// no stacktraces leaked to user
+app.use(function(err, req, res, next) {
+  res.status(err.status || 500);
+  res.render('error', {
+      message: err.message,
+      error: {}
+  });
+});
 
 app.listen(process.env.SERVER_PORT, () => console.log("Serveur API démarré"));
