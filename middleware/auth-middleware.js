@@ -1,16 +1,17 @@
 import jwt from 'jsonwebtoken';
 
 // Middleware : intercepte la req et vérifie le token fourni
-// si tout se passe bien o passe la main au contrôleur grace à next()
+// si tout se passe bien on passe la main au contrôleur grace à next()
 // si problème on répond avec une erreur et le contrôleur ne sera pas déclenché.
 export function verifyToken(req, res, next) {
   // le token devrait être présenté dans le header
   const token = req.header('Authorization');
+  console.log('check jwt, headers are: ', req.headers);
   // 401 est le code pour dire "interdit"
   if (!token) return res.status(401).json({ error: 'Access denied' });
   try {
     // on vérifie le token
-    const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
     // on enrichie la requête en y plaçant l'id du user
     // on décode le token qui nous donne le user.id
     // on pourra donc aller piocher dans req.userId depuis les contrôleurs.

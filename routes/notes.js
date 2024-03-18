@@ -11,15 +11,15 @@ router.get('/', verifyToken, function(req, res, next) {
 });
 
 //  create a new note
-router.post('/', function(req, res) {
+router.post('/', verifyToken, function(req, res) {
   noteController.create(req, res);
 });
 
 // update a note
-router.put('/:id', (req, res) => noteController.update(req, res));
+router.put('/:id', verifyToken, (req, res) => noteController.update(req, res));
 
 // delete a note
-router.delete('/:id', function(req, res) {
+router.delete('/:id',  verifyToken, function(req, res) {
   console.log('access to delete action with id: ', req.params.id );
   noteController.destroy(req, res);
 });
